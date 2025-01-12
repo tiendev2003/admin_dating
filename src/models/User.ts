@@ -1,4 +1,5 @@
-export interface User {
+export 
+interface User {
     id: number
     name: string
     email: string
@@ -27,6 +28,7 @@ export interface User {
     plan_end_date: string | null
     is_subscribe: string
     history_id: string
+    planName?: string
     height: string
     identity_picture: string | null
     is_verify: string

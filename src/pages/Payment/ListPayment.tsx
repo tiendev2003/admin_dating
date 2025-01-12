@@ -104,8 +104,7 @@ export default function PaymentGatewayList() {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = filteredAndSortedData.slice(indexOfFirstItem, indexOfLastItem)
-  const totalPages = Math.ceil(filteredAndSortedData.length / itemsPerPage)
-
+ 
   const { isSidebarOpen } = useAppContext()
 
   return (

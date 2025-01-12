@@ -20,15 +20,11 @@ import {
 } from "../../components/ui/table"
 import { useAppContext } from '../../contexts/AppContext'
 import { cn } from '../../lib/utils'
+import { Interest } from '../../models/Interest'
 import { deleteInterest, fetchInterests } from '../../redux/interestSlice'
 import { AppDispatch, RootState } from "../../redux/store"
 
-interface Interest {
-  id: number
-  image: string
-  title: string
-  status: 'publish' | 'unpublish'
-}
+
 
 
 export default function ListInterest() {
@@ -40,7 +36,7 @@ export default function ListInterest() {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const dispatch: AppDispatch = useDispatch();
-  const { interests, loading, error, isDeleting } = useSelector((state: RootState) => state.interest);
+  const { interests, loading, isDeleting } = useSelector((state: RootState) => state.interest);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -73,22 +69,21 @@ export default function ListInterest() {
   const filteredAndSortedData = useMemo(() => {
     let processed = Array.isArray(interests) ? [...interests] : [];
 
+
     if (searchTerm) {
-      processed = processed.filter(item =>
-        item.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      processed = processed.filter(item => item?.title?.toLowerCase().includes(searchTerm.toLowerCase()));
     }
 
     if (sortConfig) {
       processed.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'asc' ? -1 : 1
+        if (sortConfig && a && b && a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
         }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'asc' ? 1 : -1
+        if (a?.[sortConfig.key] > b?.[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
         }
-        return 0
-      })
+        return 0;
+      });
     }
 
     return processed
@@ -111,7 +106,7 @@ export default function ListInterest() {
         <h1 className="text-2xl font-bold">Interest List Management</h1>
         {loading ? (
           <div className="text-center">Loading...</div>
-        ) : interests.length === 0 ? (
+        ) : (Array.isArray(interests) && interests.length === 0) ? (
           <div className="text-center">No data available</div>
         ) : (
           <>
@@ -182,7 +177,7 @@ export default function ListInterest() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {currentItems.map((interest) => (
+                  {currentItems.map((interest: Interest) => (
                     <TableRow key={interest.id}>
                       <TableCell>{interest.id}</TableCell>
                       <TableCell>
@@ -203,13 +198,13 @@ export default function ListInterest() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Link  to={`/interest/edit/${interest.id}`}>
+                          <Link to={`/interest/edit/${interest.id}`}>
                             <Button variant="ghost" size="icon"   >
                               <Edit className="h-4 w-4" />
                             </Button>
                           </Link>
                           <Button variant="ghost" size="icon"
-                            onClick={() => setDeleteId(interest.id)}
+                            onClick={() => setDeleteId(interest.id.toString())}
                             className="text-red-500 
                                             hover:text-red-600">
                             <Trash2 className="h-4 w-4" />
@@ -253,7 +248,7 @@ export default function ListInterest() {
             </div>
           </>
         )}
-        {error && <div className="text-red-500">{error}</div>}
+        {/* {error && <div className="text-red-500">{error}</div>} */}
       </div>
       <Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
         <DialogContent>

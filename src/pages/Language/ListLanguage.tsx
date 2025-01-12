@@ -31,15 +31,10 @@ import {
 } from "../../components/ui/table"
 import { useAppContext } from '../../contexts/AppContext'
 import { cn } from '../../lib/utils'
+import { Language } from '../../models/Language'
 import { deleteLanguage, fetchLanguages } from '../../redux/languageSlice'
 import { AppDispatch, RootState } from "../../redux/store"
 
-interface Language {
-    id: number
-    image: string
-    title: string
-    status: 'publish' | 'unpublish'
-}
 
 
 export default function ListLanguage() {
@@ -162,7 +157,7 @@ export default function ListLanguage() {
                                 />
                             </div>
                         </div>
-                         <div className="border rounded-lg">
+                        <div className="border rounded-lg">
                             <Table>
                                 <TableHeader>
                                     <TableRow>
@@ -223,8 +218,8 @@ export default function ListLanguage() {
                                                         variant="ghost"
                                                         size="icon"
                                                         className="text-red-500 hover:text-red-600"
-                                                        onClick={() => setDeleteId(language.id)}
-                                                    > 
+                                                        onClick={() => setDeleteId(language.id.toString())}
+                                                    >
                                                         <Trash2 className="h-4 w-4" />
                                                     </Button>
                                                 </div>
@@ -234,7 +229,7 @@ export default function ListLanguage() {
                                 </TableBody>
                             </Table>
                         </div>
-                        <div className="flex items-center justify-between"> 
+                        <div className="flex items-center justify-between">
                             <div>
                                 Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredAndSortedData.length)} of {filteredAndSortedData.length} entries
                             </div>
@@ -249,7 +244,7 @@ export default function ListLanguage() {
                                 </Button>
                                 <Button
                                     className="bg-purple-600 hover:bg-purple-700 text-white min-w-[40px]"
-                                > 
+                                >
                                     {currentPage}
                                 </Button>
                                 <Button

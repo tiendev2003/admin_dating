@@ -26,16 +26,11 @@ import {
 import { useAppContext } from '../../contexts/AppContext'
 import { cn } from '../../lib/utils'
 
+import { RelationGoal } from '../../models/RelationGoal'
 import { deleteRelationGoal, fetchRelationGoals } from '../../redux/relationGoalSlice'
 import { AppDispatch, RootState } from "../../redux/store"
 
-interface RelationGoal {
-    id: number
-    title: string
-    emoji: string
-    subtitle: string
-    status: "Publish" | "Draft"
-}
+ 
 
 export default function RelationGoalList() {
     const [searchTerm, setSearchTerm] = useState("")
@@ -104,7 +99,7 @@ export default function RelationGoalList() {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage
     const currentItems = filteredAndSortedData.slice(indexOfFirstItem, indexOfLastItem)
     const totalPages = Math.ceil(filteredAndSortedData.length / itemsPerPage)
- 
+
     const { isSidebarOpen } = useAppContext()
 
     return (
@@ -193,7 +188,7 @@ export default function RelationGoalList() {
                                             <TableCell>{goal.id}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
-                                                    {goal.title}  
+                                                    {goal.title}
                                                 </div>
                                             </TableCell>
                                             <TableCell>{goal.subtitle}</TableCell>
@@ -278,4 +273,3 @@ export default function RelationGoalList() {
         </div>
     )
 }
-

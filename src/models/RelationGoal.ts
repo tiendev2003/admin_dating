@@ -1,7 +1,6 @@
-
 export interface RelationGoal {
-  id: string
+  id: string;
   title: string;
   subtitle: string;
-  status: string;
+  status: "1" | "0";
 }

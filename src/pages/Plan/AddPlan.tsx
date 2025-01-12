@@ -36,19 +36,19 @@ const formSchema = z.object({
   title: z.string().min(2, {
     message: "Plan title must be at least 2 characters.",
   }),
-  amt: z.string().min(1, {
+  amount: z.string().min(1, {
     message: "Plan amount must be at least 1.",
   }),
-  day_limit: z.string().min(1, {
+  dayLimit: z.string().min(1, {
     message: "Day limit must be at least 1.",
   }),
-  description: z.string().optional(),
-  filterInclude: z.boolean().optional(),
-  audioVideo: z.boolean().optional(),
-  directChat: z.boolean().optional(),
-  chat: z.boolean().optional(),
-  likeMenu: z.boolean().optional(),
-  status: z.enum(["publish", "unpublish"], {
+  description: z.string(),
+  filterInclude: z.boolean(),
+  audioVideo: z.boolean(),
+  directChat: z.boolean(),
+  chat: z.boolean(),
+  likeMenu: z.boolean(),
+  status: z.enum(["1", "0"], {
     required_error: "You need to select a status.",
   }),
 })
@@ -59,9 +59,16 @@ export default function AddPlan() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      amt: "0",
-      day_limit: "0",
-      status: "publish",
+      amount: "0",
+      dayLimit: "0",
+      status: "0",
+      description: "",
+      filterInclude: false,
+      audioVideo: false,
+      directChat: false,
+      chat: false,
+      likeMenu: false,
+
     },
   })
 
@@ -115,7 +122,7 @@ export default function AddPlan() {
 
               <FormField
                 control={form.control}
-                name="amt"
+                name="amount"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Plan Amount</FormLabel>
@@ -129,7 +136,7 @@ export default function AddPlan() {
 
               <FormField
                 control={form.control}
-                name="day_limit"
+                name="dayLimit"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Day Limit</FormLabel>
@@ -165,7 +172,7 @@ export default function AddPlan() {
                 control={form.control}
                 name="filterInclude"
                 render={({ field }) => (
-                    <FormItem className='flex flex-col'>
+                  <FormItem className='flex flex-col'>
                     <FormLabel>Filter Include?</FormLabel>
                     <FormControl>
                       <Switch onCheckedChange={field.onChange} checked={field.value} />
@@ -178,7 +185,7 @@ export default function AddPlan() {
                 control={form.control}
                 name="audioVideo"
                 render={({ field }) => (
-                    <FormItem className='flex flex-col'>
+                  <FormItem className='flex flex-col'>
                     <FormLabel>Audio Video?</FormLabel>
                     <FormControl>
                       <Switch onCheckedChange={field.onChange} checked={field.value} />
@@ -191,7 +198,7 @@ export default function AddPlan() {
                 control={form.control}
                 name="directChat"
                 render={({ field }) => (
-                    <FormItem className='flex flex-col'>
+                  <FormItem className='flex flex-col'>
                     <FormLabel>Direct Chat?</FormLabel>
                     <FormControl>
                       <Switch onCheckedChange={field.onChange} checked={field.value} />
@@ -217,7 +224,7 @@ export default function AddPlan() {
                 control={form.control}
                 name="likeMenu"
                 render={({ field }) => (
-                    <FormItem className='flex flex-col'>
+                  <FormItem className='flex flex-col'>
                     <FormLabel>Like Menu?</FormLabel>
                     <FormControl>
                       <Switch onCheckedChange={field.onChange} checked={field.value} />
@@ -240,8 +247,8 @@ export default function AddPlan() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="publish">Publish</SelectItem>
-                      <SelectItem value="unpublish">UnPublish</SelectItem>
+                      <SelectItem value="1">Publish</SelectItem>
+                      <SelectItem value="0">UnPublish</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

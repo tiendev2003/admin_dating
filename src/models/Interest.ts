@@ -1,6 +1,6 @@
 export interface Interest {
-  id: string;
-  title: string;
-  status:string;
-  img?: string;
+  id: number
+  title: string
+  img: string
+  status: '1' | '0'
 }

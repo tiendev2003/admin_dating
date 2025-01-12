@@ -1,7 +1,7 @@
 
 export interface Language {
-  id:string;
-  title: string;
-  status: string;
-  img?: string;
+    id: number
+    img: string
+    title: string
+    status: '1' | '0'
 }

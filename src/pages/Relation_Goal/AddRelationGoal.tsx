@@ -36,7 +36,7 @@ const formSchema = z.object({
     subtitle: z.string().min(2, {
         message: "Relation goal subtitle must be at least 2 characters.",
     }),
-    status: z.enum(["Publish", "Draft"], {
+    status: z.enum(["1", "0"], {
         required_error: "You need to select a status.",
     }),
 })
@@ -48,7 +48,7 @@ export default function AddRelationGoal() {
         defaultValues: {
             title: "",
             subtitle: "",
-            status: "Publish",
+            status: "1",
         },
     })
     const navigate = useNavigate()

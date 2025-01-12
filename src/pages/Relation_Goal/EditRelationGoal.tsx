@@ -41,6 +41,7 @@ const formSchema = z.object({
     status: z.enum(["0", "1"], {
         required_error: "You need to select a status.",
     }),
+
 })
 
 export default function EditRelationGoal() {
@@ -55,7 +56,7 @@ export default function EditRelationGoal() {
         defaultValues: {
             title: "",
             subtitle: "",
-            status: "1",
+            status: "0",
         },
     })
 

@@ -1,13 +1,13 @@
 export interface Plan {
-  id: string;
-  title: string;
-  amt: string;
-  day_limit: string;
-  description?: string;
-  filterInclude?: boolean;
-  audioVideo?: boolean;
-  directChat?: boolean;
-  chat?: boolean;
-  likeMenu?: boolean;
-  status: string;
+  id: string
+  title: string
+  amount: string
+  dayLimit: string
+  filterInclude: boolean
+  directChat: boolean
+  chat: boolean
+  likeMenu: boolean
+  audioVideo: boolean
+  status: "1" | "0"
+  description: string
 }

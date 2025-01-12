@@ -30,19 +30,9 @@ import {
 } from "../../components/ui/table"
 import { useAppContext } from '../../contexts/AppContext'
 import { cn } from '../../lib/utils'
+import { Plan } from '../../models/Plan'
 
-interface Plan {
-    id: number
-    title: string
-    amount: string
-    dayLimit: string
-    filterInclude: boolean
-    directChat: boolean
-    chat: boolean
-    likeMenu: boolean
-    audioVideo: boolean
-    status: "Publish" | "Draft"
-}
+
 
 export default function PlanList() {
     const [searchTerm, setSearchTerm] = useState("")
@@ -250,8 +240,8 @@ export default function PlanList() {
                                         <TableRow key={plan.id}>
                                             <TableCell>{plan.id}</TableCell>
                                             <TableCell className="font-medium">{plan.title}</TableCell>
-                                            <TableCell>{new Intl.NumberFormat('vn-VI',).format(Number(plan.amt))} đ</TableCell>
-                                            <TableCell>{plan.day_limit}</TableCell>
+                                            <TableCell>{new Intl.NumberFormat('vn-VI',).format(Number(plan.amount))} đ</TableCell>
+                                            <TableCell>{plan.dayLimit}</TableCell>
                                             <TableCell>{plan.filterInclude ? "Yes" : "No"}</TableCell>
                                             <TableCell>{plan.directChat ? "Yes" : "No"}</TableCell>
                                             <TableCell>{plan.chat ? "Yes" : "No"}</TableCell>
@@ -261,7 +251,7 @@ export default function PlanList() {
                                                 <Badge
                                                     variant={plan.status === '1' ? 'primary' : 'secondary'}
                                                     className="cursor-pointer"
-                                                    onClick={() => handleStatusToggle(plan.id)}
+                                                    onClick={() => handleStatusToggle(plan.id.toString())}
                                                 >
                                                     {plan.status === '1' ? 'Publish' : 'Unpublish'}
                                                 </Badge>
@@ -278,7 +268,7 @@ export default function PlanList() {
                                                         variant="ghost"
                                                         size="icon"
                                                         className="text-red-500 hover:text-red-600"
-                                                        onClick={() => setDeleteId(plan.id)}
+                                                        onClick={() => setDeleteId(plan.id.toString())}
                                                     >
                                                         <Trash2 className="h-4 w-4" />
                                                     </Button>

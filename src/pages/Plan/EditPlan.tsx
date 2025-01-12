@@ -37,18 +37,18 @@ const formSchema = z.object({
     title: z.string().min(2, {
         message: "Plan title must be at least 2 characters.",
     }),
-    amt: z.string().min(1, {
+    amount: z.string().min(1, {
         message: "Plan amount must be at least 1.",
     }),
-    day_limit: z.string().min(1, {
+    dayLimit: z.string().min(1, {
         message: "Day limit must be at least 1.",
     }),
-    description: z.string().optional(),
-    filterInclude: z.boolean().optional(),
-    audioVideo: z.boolean().optional(),
-    directChat: z.boolean().optional(),
-    chat: z.boolean().optional(),
-    likeMenu: z.boolean().optional(),
+    description: z.string(),
+    filterInclude: z.boolean(),
+    audioVideo: z.boolean(),
+    directChat: z.boolean(),
+    chat: z.boolean(),
+    likeMenu: z.boolean(),
     status: z.enum(["0", "1"], {
         required_error: "You need to select a status.",
     }),
@@ -65,9 +65,16 @@ export default function EditPlan() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
-            amt: "0",
-            day_limit: "0",
+            amount: "0",
+            dayLimit: "0",
             status: "0",
+            description: "",
+            filterInclude: false,
+            audioVideo: false,
+            directChat: false,
+            chat: false,
+            likeMenu: false,
+
         },
     })
     useEffect(() => {
@@ -131,7 +138,7 @@ export default function EditPlan() {
 
                             <FormField
                                 control={form.control}
-                                name="amt"
+                                name="amount"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Plan Amount</FormLabel>
@@ -145,7 +152,7 @@ export default function EditPlan() {
 
                             <FormField
                                 control={form.control}
-                                name="day_limit"
+                                name="dayLimit"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Day Limit</FormLabel>
